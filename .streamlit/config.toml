@@ -1,0 +1,5 @@
+[server]
+maxUploadSize = 400
+maxMessageSize = 400
+fileWatcherType = "auto"
+runOnSave = true
