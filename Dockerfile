@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # disable cache
-ARG CACHEBUST=1
-RUN git clone https://github.com/abusafa/streamlit-app.git .
 
+RUN git clone https://github.com/abusafa/streamlit-app.git .
+ARG CACHEBUST=1
 
 RUN pip3 install -r requirements.txt
 
