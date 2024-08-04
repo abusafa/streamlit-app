@@ -58,7 +58,8 @@ for distance_category in df_students_schools['distanceCategoryLabel'].unique():
         st.metric(label=f"Number of offices:", value=filtered_data['office'].nunique())
 
 
-    # st.write(filtered_data)
+    if st.checkbox(f"Show data for {distance_category}"):
+        st.write(filtered_data)
 
 
 st.markdown("""---""")
