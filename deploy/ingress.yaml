@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: streamlit-app
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: 16m
+
+spec:
+  tls:
+    - hosts:
+        - streamlit-app.rafed.io
+      secretName: tls-secret
+  rules:
+    - host: streamlit-app.rafed.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: streamlit-app
+                port:
+                  number: 80

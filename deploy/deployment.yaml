@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: streamlit-app
+  name: streamlit-app
+  namespace: streamlit-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit-app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: streamlit-app
+    spec:
+      containers:
+        - image: abusafa/streamlit-app
+          imagePullPolicy: Always
+          name: streamlit-app
+          ports:
+            - containerPort: 8501
+              protocol: TCP
+          resources:
+            requests:
+              memory: "1Gi" # Increased from 512Mi to 1Gi
+              cpu: "250m"
+            limits:
+              memory: "2Gi" # Increased from 1Gi to 2Gi
+              cpu: "500m"

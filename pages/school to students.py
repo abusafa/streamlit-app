@@ -10,6 +10,7 @@ def load_data(uploaded_file):
     return pd.read_csv(uploaded_file)
 
 
+
 df_students_schools = load_data("https://s3.tatweertransit.com/uploads/aug-4-2024-students_schools.csv")
 
 
@@ -42,22 +43,22 @@ with st.container(border=True):
 #             file_name=f"{distance_category}_data.xlsx",
 #             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 #         )
-for distance_category in df_students_schools['distanceCategoryLabel'].unique():
-    st.title(f"{distance_category}")
-    filtered_data = df_students_schools[df_students_schools['distanceCategoryLabel'] == distance_category]
-    # add stats number of students
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric(label=f"Number of Students: ", value=filtered_data.shape[0])
-    with col2:
-        st.metric(label=f"Number of Schools: ", value=filtered_data['school'].nunique())
-    with col3:
-        st.metric(label=f"Number of odministrations: ", value=filtered_data['administration'].nunique())
-    with col4:
-        st.metric(label=f"Number of offices:", value=filtered_data['office'].nunique())
+# for distance_category in df_students_schools['distanceCategoryLabel'].unique():
+#     st.title(f"{distance_category}")
+#     filtered_data = df_students_schools[df_students_schools['distanceCategoryLabel'] == distance_category]
+#     # add stats number of students
+#     col1, col2, col3, col4 = st.columns(4)
+#     with col1:
+#         st.metric(label=f"Number of Students: ", value=filtered_data.shape[0])
+#     with col2:
+#         st.metric(label=f"Number of Schools: ", value=filtered_data['school'].nunique())
+#     with col3:
+#         st.metric(label=f"Number of odministrations: ", value=filtered_data['administration'].nunique())
+#     with col4:
+#         st.metric(label=f"Number of offices:", value=filtered_data['office'].nunique())
 
-    
-    st.write(filtered_data)
+
+#     st.write(filtered_data)
 
 
 st.markdown("""---""")
