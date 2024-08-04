@@ -10,7 +10,7 @@ def load_data(uploaded_file):
     return pd.read_csv(uploaded_file)
 
 
-df_students_schools = load_data("https://s3.tatweertransit.com/uploads/students_schools.csv")
+df_students_schools = load_data("https://s3.tatweertransit.com/uploads/aug-4-2024-students_schools.csv")
 
 
 
@@ -33,6 +33,35 @@ with st.container(border=True):
         st.subheader('Pivot Table: Administration Row Counts for Each Distance Category')
         st.write(pivot_table)
 
+# for distance_category in df_students_schools['distanceCategoryLabel'].unique():
+#     filtered_data = df_students_schools[df_students_schools['distanceCategoryLabel'] == distance_category]
+#     if not filtered_data.empty:
+#         st.download_button(
+#             label=f"Download {distance_category} Excel",
+#             data=filtered_data.to_excel,
+#             file_name=f"{distance_category}_data.xlsx",
+#             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+#         )
+for distance_category in df_students_schools['distanceCategoryLabel'].unique():
+    st.title(f"{distance_category}")
+    filtered_data = df_students_schools[df_students_schools['distanceCategoryLabel'] == distance_category]
+    # add stats number of students
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric(label=f"Number of Students: ", value=filtered_data.shape[0])
+    with col2:
+        st.metric(label=f"Number of Schools: ", value=filtered_data['school'].nunique())
+    with col3:
+        st.metric(label=f"Number of odministrations: ", value=filtered_data['administration'].nunique())
+    with col4:
+        st.metric(label=f"Number of offices:", value=filtered_data['office'].nunique())
+
+    
+    st.write(filtered_data)
+
+
+st.markdown("""---""")
+st.markdown("""# Schools to Students Map""")
 
 
 with st.container(border=True):
@@ -47,6 +76,8 @@ with st.container(border=True):
             df_students_schools[df_students_schools['administration'] == selected_administration]['school'].unique()
         )
         school_data = df_students_schools[(df_students_schools['administration'] == selected_administration) & (df_students_schools['school'] == selected_school)]
+
+        # Add buttons to download excel for each Distance Category
 
 
 
